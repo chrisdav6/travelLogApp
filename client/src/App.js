@@ -15,11 +15,13 @@ const App = () => {
     zoom: 4.5
   });
 
+  const getEntries = async () => {
+    const logEntries = await listLogEntries();
+    setLogEntries(logEntries);
+  };
+
   useEffect(() => {
-    (async () => {
-      const logEntries = await listLogEntries();
-      setLogEntries(logEntries);
-    })();
+    getEntries();
   }, []);
 
   const showAddMarkerPopup = event => {
@@ -39,7 +41,7 @@ const App = () => {
       onDblClick={showAddMarkerPopup}
     >
       {logEntries.map(entry => (
-        <div>
+        <div key={entry._id}>
           <Marker
             key={entry._id}
             latitude={entry.latitude}
@@ -74,7 +76,7 @@ const App = () => {
               latitude={entry.latitude}
               longitude={entry.longitude}
               closeButton={true}
-              closeOnClick={true}
+              closeOnClick={false}
               dynamicPosition={true}
               onClose={() => setShowPopup({})}
               anchor={'top'}
@@ -118,13 +120,19 @@ const App = () => {
             latitude={addEntryLocation.latitude}
             longitude={addEntryLocation.longitude}
             closeButton={true}
-            closeOnClick={true}
+            closeOnClick={false}
             dynamicPosition={true}
             onClose={() => setAddEntryLocation(null)}
             anchor={'top'}
           >
             <div className='popup'>
-              <LogEntryForm />
+              <LogEntryForm
+                onClose={() => {
+                  setAddEntryLocation(null);
+                  getEntries();
+                }}
+                location={addEntryLocation}
+              />
             </div>
           </Popup>
         </>
