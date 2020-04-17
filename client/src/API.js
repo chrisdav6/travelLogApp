@@ -7,6 +7,7 @@ export async function listLogEntries() {
 
 export async function createLogEntry(entry) {
   const apiPassword = entry.apiPassword;
+  delete entry.apiPassword;
 
   const response = await fetch(`${API_URL}/api/logs`, {
     method: 'Post',
