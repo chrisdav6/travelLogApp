@@ -6,12 +6,24 @@ export async function listLogEntries() {
 }
 
 export async function createLogEntry(entry) {
+  const apiPassword = entry.apiPassword;
+
   const response = await fetch(`${API_URL}/api/logs`, {
     method: 'Post',
     headers: {
-      'content-type': 'application/json'
+      'content-type': 'application/json',
+      'X-API-PASSWORD': apiPassword
     },
     body: JSON.stringify(entry)
   });
-  return response.json();
+
+  const json = await response.json();
+
+  if (response.ok) {
+    return json;
+  }
+
+  const error = new Error(json.message);
+  error.response = json;
+  throw error;
 }

@@ -84,7 +84,11 @@ const App = () => {
               <div className='popup'>
                 <h3>{entry.title}</h3>
                 {entry.image ? (
-                  <img className='image' src={entry.image}></img>
+                  <img
+                    className='image'
+                    src={entry.image}
+                    alt={entry.title}
+                  ></img>
                 ) : null}
                 <p>{entry.comments}</p>
                 <small>
