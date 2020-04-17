@@ -83,6 +83,9 @@ const App = () => {
             >
               <div className='popup'>
                 <h3>{entry.title}</h3>
+                {entry.image ? (
+                  <img className='image' src={entry.image}></img>
+                ) : null}
                 <p>{entry.comments}</p>
                 <small>
                   Visited on: {new Date(entry.visitDate).toLocaleDateString()}

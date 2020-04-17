@@ -23,6 +23,13 @@ body {
   padding: 1rem;
 }
 
+.image {
+  display: block;
+  height: 300px;
+  width: auto;
+  margin: 0 auto;
+}
+
 .entry-form label,
 .entry-form input,
 .entry-form textarea {
